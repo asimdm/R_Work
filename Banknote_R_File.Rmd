@@ -1,0 +1,131 @@
+---
+title: "BankNote Authentication"
+output: html_document
+date: "2022-10-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Source:**
+
+https://archive.ics.uci.edu/ml/datasets/banknote+authentication
+
+Owner of database: Volker Lohweg (University of Applied Sciences, Ostwestfalen-Lippe, volker.lohweg '@' hs-owl.de)
+
+Donor of database: Helene DÃ¶rksen (University of Applied Sciences, Ostwestfalen-Lippe, helene.doerksen '@' hs-owl.de)
+
+Date received: August, 2012
+
+**About**
+
+Data were extracted from images that were taken from genuine and forged banknote-like specimens. For digitization, an industrial camera usually used for print inspection was used. The final images have 400x 400 pixels. Due to the object lens and distance to the investigated object gray-scale pictures with a resolution of about 660 dpi were gained. Wavelet Transform tool were used to extract features from images.
+
+
+
+**Attribute Information:**
+
+a)	var: Variance of Wavelet Transformed image (continuous) 
+
+b)	skew: Skewness of Wavelet Transformed image (continuous) 
+
+c)	kurt: Kurtosis of Wavelet Transformed image (continuous) 
+
+d)	ent: Entropy of image (continuous) 
+
+e)	class: (integer) 0 and 1
+
+## Attributes Details
+
+```{r r1}
+library(readxl)
+library(moments)
+
+banknote <- read_xlsx("data_banknote_authentication.xlsx")
+```
+
+```{r}
+options(digits = 2)
+summary(banknote)
+```
+**1) Variance**
+
+```{r r2,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(banknote,class==0)
+var0<-class0$var
+hist(var0, main="Histogram for class 0", col = "blue")
+class1<-subset(banknote,class==1)
+var1<-class1$var
+hist(var1, main="Histogram for class 1", col = "red")
+variance<-banknote$var
+hist(variance, main="Histogram for both class", col = "green")
+```
+
+
+**2) skewness**
+
+```{r r3,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(banknote,class==0)
+skew0<-class0$skew
+hist(skew0, main="Histogram for class 0", col = "blue")
+class1<-subset(banknote,class==1)
+skew1<-class1$skew
+hist(skew1, main="Histogram for class 1", col = "red")
+skewness<-banknote$skew
+hist(skewness, main="Histogram for both class", col = "green")
+```
+
+**3) Variance**
+
+```{r r4,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(banknote,class==0)
+kurt0<-class0$kurt
+hist(kurt0, main="Histogram for class 0", col = "blue")
+class1<-subset(banknote,class==1)
+kurt1<-class1$kurt
+hist(kurt1, main="Histogram for class 1", col = "red")
+kurtosis<-banknote$kurt
+hist(kurtosis, main="Histogram for both class", col = "green")
+```
+
+**4) entropy**
+
+```{r r5,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(banknote,class==0)
+ent0<-class0$ent
+hist(ent0, main="Histogram for class 0", col = "blue")
+class1<-subset(banknote,class==1)
+ent1<-class1$ent
+hist(ent1, main="Histogram for class 1", col = "red")
+entropy<-banknote$ent
+hist(entropy, main="Histogram for both class", col = "green")
+```
+
+## Correlation Matrix
+
+**Class 0**
+
+```{r}
+options(digits = 2)
+co0<-subset(banknote,class==0)
+cor(co0[-5])
+det(cor(co0[-5]))
+```
+
+**Class 1**
+
+```{r}
+options(digits = 2)
+co1<-subset(banknote,class==1)
+cor(co1[-5])
+det(cor(co1[-5]))
+```
+
+**Both Classes**
+
+```{r}
+options(digits = 2)
+cor(banknote[-5])
+det(cor(banknote[-5]))
+```

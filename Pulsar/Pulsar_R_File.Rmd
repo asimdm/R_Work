@@ -1,0 +1,217 @@
+---
+title: "Pulsar"
+output: html_document
+date: "2022-10-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Source:**
+
+https://archive.ics.uci.edu/ml/datasets/HTRU2
+
+Dr Robert Lyon, University of Manchester, School of Physics and Astronomy, Alan Turing Building, Manchester M13 9PL, United Kingdom, robert.lyon ‘@’ manchester.ac.uk
+
+**About**
+
+This is a data set which describes a sample of pulsar candidates collected during the High Time Resolution Universe Survey.
+Pulsars are a rare type of Neutron star that produce radio emission detectable here on Earth. They are of considerable scientific interest as probes of space-time, the inter-stellar medium, and states of matter.
+
+
+**Attribute Information:**
+
+a)	MIP: Mean of the Integrated Profile
+
+b)	SDIP: Standard Deviation of the Integrated Profile
+
+
+c)	KIP: excess Kurtosis of the Integrated Profile
+
+d)	SIP: Skewness of the Integrated Profile
+
+e)	MDS: Mean of the DM-SNR curve
+
+f)	SDDS: Standard deviation of the DM-SNR curve
+
+g)	KDS: excess Kurtosis of the DM-SNR curve
+
+h)	SDS: Skewness of the DM-SNR curve
+
+i)	class
+
+
+**Citation Request:**
+
+If you use the dataset in your work, please cite us using the following paper:
+
+R. J. Lyon, B. W. Stappers, S. Cooper, J. M. Brooke, J. D. Knowles, Fifty Years of Pulsar Candidate Selection: From simple filters to a new principled real-time classification approach, Monthly Notices of the Royal Astronomical Society 459 (1), 1104-1123, DOI: 10.1093/mnras/stw656
+
+If possible, please also cite the DOI of the data set directly:
+
+R. J. Lyon, HTRU2, DOI: 10.6084/m9.figshare.3080389.v1.
+
+Acknowledgements
+
+This data was obtained with the support of grant EP/I028099/1 for the University of Manchester Centre for Doctoral Training in Computer Science, from the UK Engineering and Physical Sciences Research Council (EPSRC). The raw observational data was collected by the High Time Resolution Universe Collaboration using the Parkes Observatory, funded by the Commonwealth of Australia and managed by the CSIRO.
+
+
+## Attributes Details
+
+
+```{r r1}
+library(readxl)
+library(moments)
+
+pulsar <- read_xlsx("Pulsar_Dataset.xlsx")
+options(digits = 2)
+summary(pulsar)
+```
+
+**1) MIP**
+
+```{r r2,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(pulsar,class==0)
+mip0<-class0$MIP
+hist(mip0, main= "Histogram for class 0", col = "blue")
+class1<-subset(pulsar,class==1)
+mip1<-class1$MIP
+hist(mip1, main= "Histogram for class 1", col = "red")
+mip<-pulsar$MIP
+hist(mip, main= "Histogram for both classes", col = "green")
+```
+
+**2) SDIP**
+
+```{r r3,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(pulsar,class==0)
+sdip0<-class0$SDIP
+hist(sdip0, main= "Histogram for class 0", col = "blue")
+class1<-subset(pulsar,class==1)
+sdip1<-class1$SDIP
+hist(sdip1, main= "Histogram for class 1", col = "red")
+sdip<-pulsar$SDIP
+hist(sdip, main= "Histogram for both classes", col = "green")
+```
+
+**3) KIP**
+
+```{r r4,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(pulsar,class==0)
+kip0<-class0$KIP
+hist(kip0, main= "Histogram for class 0", col = "blue")
+class1<-subset(pulsar,class==1)
+kip1<-class1$KIP
+hist(kip1, main= "Histogram for class 1", col = "red")
+kip<-pulsar$KIP
+hist(kip, main= "Histogram for both classes", col = "green")
+```
+
+**4) SIP**
+
+```{r r5,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(pulsar,class==0)
+sip0<-class0$SIP
+hist(sip0, main= "Histogram for class 0", col = "blue")
+class1<-subset(pulsar,class==1)
+sip1<-class1$SIP
+hist(sip1, main= "Histogram for class 1", col = "red")
+sip<-pulsar$SIP
+hist(sip, main= "Histogram for both classes", col = "green")
+```
+
+**5) MDS**
+
+```{r r6,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(pulsar,class==0)
+mds0<-class0$MDS
+hist(mds0, main= "Histogram for class 0", col = "blue")
+class1<-subset(pulsar,class==1)
+mds1<-class1$MDS
+hist(mds1, main= "Histogram for class 1", col = "red")
+mds<-pulsar$MDS
+hist(mds, main= "Histogram for both classes", col = "green")
+```
+
+**6) SDDS**
+
+```{r r7,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(pulsar,class==0)
+sdds0<-class0$SDDS
+hist(sdds0, main= "Histogram for class 0", col = "blue")
+class1<-subset(pulsar,class==1)
+sdds1<-class1$SDDS
+hist(sdds1, main= "Histogram for class 1", col = "red")
+sdds<-pulsar$SDDS
+hist(sdds, main= "Histogram for both classes", col = "green")
+```
+
+**7) KDS**
+
+```{r r8,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(pulsar,class==0)
+kds0<-class0$KDS
+hist(kds0, main= "Histogram for class 0", col = "blue")
+class1<-subset(pulsar,class==1)
+kds1<-class1$KDS
+hist(kds1, main= "Histogram for class 1", col = "red")
+kds<-pulsar$KDS
+hist(kds, main= "Histogram for both classes", col = "green")
+```
+
+**8) SDS**
+
+```{r r9,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(pulsar,class==0)
+sds0<-class0$SDS
+hist(sds0, main= "Histogram for class 0", col = "blue")
+class1<-subset(pulsar,class==1)
+sds1<-class1$SDS
+hist(sds1, main= "Histogram for class 1", col = "red")
+sds<-pulsar$SDS
+hist(sds, main= "Histogram for both classes", col = "green")
+```
+
+## Correlation Matrix
+
+**Class 0**
+
+```{r}
+options(digits = 2)
+co0<-subset(pulsar,class==0)
+cor(co0[-9])
+cov(co0[-9])
+det(cor(co0[-9]))
+det(cov(co0[-9]))
+eigen(cor(co0[-9]))
+eigen(cov(co0[-9]))
+```
+
+**Class 1**
+
+```{r}
+options(digits = 2)
+co1<-subset(pulsar,class==1)
+cor(co1[-9])
+cov(co1[-9])
+det(cor(co1[-9]))
+det(cov(co1[-9]))
+eigen(cor(co1[-9]))
+eigen(cov(co1[-9]))
+```
+**Both Classes**
+
+```{r}
+options(digits = 2)
+cor(pulsar[-9])
+cov(pulsar[-9])
+det(cor(pulsar[-9]))
+det(cov(pulsar[-9]))
+```
+
+
+```{r r6}
+plot(1:8, eigen(cov(co1[-c(9)]))$values, cex=2)
+points(1:8, eigen(cov(co0[-c(9)]))$values, col=2)
+```

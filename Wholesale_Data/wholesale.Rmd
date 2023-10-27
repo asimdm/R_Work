@@ -1,0 +1,196 @@
+---
+title: "Wholesale Customers Data"
+output: html_document
+date: "2022-10-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Sources**
+
+https://archive.ics.uci.edu/ml/datasets/wholesale+customers
+Margarida G. M. S. Cardoso, margarida.cardoso ‘@’ iscte.pt, ISCTE-IUL, Lisbon, Portugal
+
+**Attribute Information:**
+
+a)	fresh: annual spending on fresh products (Continuous)
+
+b)	milk: annual spending on milk products (Continuous)
+
+c)	grocery: annual spending on grocery products (Continuous)
+
+d)	frozen: annual spending on frozen products (Continuous)
+
+e)	DP: annual spending on Detergents and Paper products (Continuous)
+
+f)	del: annual spending on and Delicatessen products (Continuous)
+
+g)	region: customer Region - Lisnon, Oporto or Other (Nominal)
+
+h)	class: customer Channel - (Hotel/Restaurant/Cafe) or (Retail channel)
+
+**Citation Request:**
+
+The data set is originated from a larger database referred on:
+
+Abreu, N. (2011). Analise do perfil do cliente Recheio e desenvolvimento de um sistema promocional. Mestrado em Marketing, ISCTE-IUL, Lisbon
+
+## Attributes Details
+
+
+```{r r1}
+library(readxl)
+library(ggplot2)
+library(dplyr)
+
+wholesale <- read_xlsx("Wholesale_customers_data.xlsx")
+options(digits = 2)
+summary(wholesale)
+```
+
+**1) fresh**
+
+```{r r2,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(wholesale,class==1)
+fresh0<-class0$fresh
+hist(fresh0, main= "Histogram for class 0", col = "blue")
+class1<-subset(wholesale,class==2)
+fresh1<-class1$fresh
+hist(fresh1, main= "Histogram for class 1", col = "red")
+fresh<-wholesale$fresh
+hist(fresh, main= "Histogram for both classes", col = "green")
+```
+
+**2) milk**
+
+```{r r3,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(wholesale,class==1)
+milk0<-class0$milk
+hist(milk0, main= "Histogram for class 0", col = "blue")
+class1<-subset(wholesale,class==2)
+milk1<-class1$milk
+hist(milk1, main= "Histogram for class 1", col = "red")
+milk<-wholesale$milk
+hist(milk, main= "Histogram for both classes", col = "green")
+```
+
+**3) grocery**
+
+```{r r4,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(wholesale,class==1)
+grocery0<-class0$grocery
+hist(grocery0, main= "Histogram for class 0", col = "blue")
+class1<-subset(wholesale,class==2)
+grocery1<-class1$grocery
+hist(grocery1, main= "Histogram for class 1", col = "red")
+grocery<-wholesale$grocery
+hist(grocery, main= "Histogram for both classes", col = "green")
+```
+
+**4) frozen**
+
+```{r r5,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(wholesale,class==1)
+frozen0<-class0$frozen
+hist(frozen0, main= "Histogram for class 0", col = "blue")
+class1<-subset(wholesale,class==2)
+frozen1<-class1$frozen
+hist(frozen1, main= "Histogram for class 1", col = "red")
+frozen<-wholesale$frozen
+hist(frozen, main= "Histogram for both classes", col = "green")
+```
+
+**5) DP**
+
+```{r r6,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(wholesale,class==1)
+dp0<-class0$DP
+hist(dp0, main= "Histogram for class 0", col = "blue")
+class1<-subset(wholesale,class==2)
+dp1<-class1$DP
+hist(dp1, main= "Histogram for class 1", col = "red")
+dp<-wholesale$DP
+hist(dp, main= "Histogram for both classes", col = "green")
+```
+
+**6) del**
+
+```{r r7,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(wholesale,class==1)
+del0<-class0$del
+hist(del0, main= "Histogram for class 0", col = "blue")
+class1<-subset(wholesale,class==2)
+del1<-class1$del
+hist(del1, main= "Histogram for class 1", col = "red")
+del<-wholesale$del
+hist(del, main= "Histogram for both classes", col = "green")
+```
+
+**7) region**
+
+```{r r8,figures-side, fig.show='hold',out.width="33%"}
+class0 <- subset(wholesale,class==1)
+class1<-subset(wholesale,class==2)
+
+p <- class0 %>%
+    count(region)
+ggplot(p, aes(x=(region),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)
+
+p <- class1 %>%
+    count(region)
+ggplot(p, aes(x=(region),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)
+
+p <- wholesale %>%
+    count(region)
+ggplot(p, aes(x=(region),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)
+```
+
+## Correlation Matrix
+
+**Class 1**
+
+```{r}
+options(digits = 2)
+co0<-subset(wholesale,class==1)
+cor(co0[-1])
+cov(co0[-1])
+det(cor(co0[-1]))
+det(cov(co0[-1]))
+eigen(cor(co0[-1]))
+eigen(cov(co0[-1]))
+```
+
+**Class 2**
+
+```{r}
+options(digits = 2)
+co1<-subset(wholesale,class==2)
+cor(co1[-1])
+cov(co1[-1])
+det(cor(co1[-1]))
+det(cov(co1[-1]))
+eigen(cor(co1[-1]))
+eigen(cov(co1[-1]))
+```
+**Both Classes**
+
+```{r}
+options(digits = 2)
+cor(wholesale[-1])
+det(cor(wholesale[-1]))
+det(cov(wholesale[-1]))
+```
+
+
+```{r r6}
+plot(1:7, eigen(cov(co1[-c(1)]))$values, cex=2)
+points(1:7, eigen(cov(co0[-c(1)]))$values, col=2)
+```

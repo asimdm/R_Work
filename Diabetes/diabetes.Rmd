@@ -1,0 +1,531 @@
+---
+title: "Diabetes"
+output: html_document
+date: "2022-10-6"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Source:**
+
+https://archive.ics.uci.edu/ml/datasets/Early+stage+diabetes+risk+prediction+dataset.
+
+**About**
+
+Data has been collected using direct questionnaires from the patients of Sylhet Diabetes Hospital in Sylhet, Bangladesh and approved by a doctor.
+
+
+**Attribute Information:**
+
+a)	Age: 20-65
+
+b)	Gender 1. Male, 0. Female
+
+c)	PolyU: (Polyuria) 1. Yes, 0.No.
+
+d)	PolyD: (Polydipsia) 1. Yes, 0.No.
+
+e)	WLoss: (Sudden Weight Loss) 1. Yes, 0.No.
+
+f)	Weak: (Weakness) 1. Yes, 0.No.
+
+g)	PolyP: (Polyphagia) 1. Yes, 0.No.
+
+h)	GThrush: (Genital Thrush) 1. Yes, 0.No.
+
+i)	VB: (Visual Blurring) 1. Yes, 0.No.
+
+j)	Itch: (Itching) 1. Yes, 0.No.
+
+k)	Irritability: 1. Yes, 0.No.
+
+l)	DHeal: (Delayed Healing) 1. Yes, 0.No.
+
+m)	PP: (Partial Paresis) 1. Yes, 0.No.
+
+n)	Stiff: (Muscle Stiffness) 1. Yes, 0.No.
+
+o)	Alopecia: 1. Yes, 0.No.
+
+p)	Obesity: 1. Yes, 0.No.
+
+q)	class:  Positive, Negative.
+
+
+**Contributors**
+
+M M Faniqul Islam, Queen Mary University of London, United Kingdom m.islam ‘@’ smd17.qmul.ac.uk
+
+Rahatara Ferdousi, Metropolitan University Sylhet, Bangladesh rahatara ‘@’ metrouni.edu.bd
+
+Sadikur Rahman and Humayra, Metropolitan University Sylhet, Bangladesh rahmansadik004 ‘@’ gmail.com
+
+Yasmin Bushra, Metropolitan University Sylhet, Bangladesh humayrabushra234 ‘@’ gmail.com
+
+
+**Citation Request:**
+
+Islam, MM Faniqul, et al. ‘Likelihood prediction of diabetes at early stage using data mining techniques.’ Computer Vision and Machine Intelligence in Medical Image Analysis. Springer, Singapore, 2020. 113-125. https://link.springer.com/chapter/10.1007/978-981-13-8798-2_12
+
+
+## Attributes Details
+
+
+```{r r1}
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+diabetes <- read_xlsx("D:/FOSSEE/Dataset/Data Set/Logical/Diabetes/Diabetes.xlsx")
+class0 <- subset(diabetes,class=='Positive')
+class1 <- subset(diabetes,class=='Negative')
+```
+
+**1) Age**
+
+```{r r2,figures-side, fig.show='hold',out.width="33%"}
+age0<-class0$Age
+hist(age0, main= "Class 0", col = "blue")
+age1<-class1$Age
+hist(age1, main= "Class 1", col = "red")
+age<-diabetes$Age
+hist(age, main= "Both Classes", col = "green")
+```
+
+**2) Gender**
+
+```{r r3,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(Gender)
+ggplot(p, aes(x=(Gender),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(Gender)
+ggplot(p, aes(x=(Gender),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(Gender)
+ggplot(p, aes(x=(Gender),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**3) PolyU**
+
+```{r r4,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(PolyU)
+ggplot(p, aes(x=(PolyU),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(PolyU)
+ggplot(p, aes(x=(PolyU),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(PolyU)
+ggplot(p, aes(x=(PolyU),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**4) PolyD**
+
+```{r r5,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(PolyD)
+ggplot(p, aes(x=(PolyD),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(PolyD)
+ggplot(p, aes(x=(PolyD),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(PolyD)
+ggplot(p, aes(x=(PolyD),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+**5) WLoss**
+
+```{r r6,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(WLoss)
+ggplot(p, aes(x=(WLoss),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(WLoss)
+ggplot(p, aes(x=(WLoss),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(WLoss)
+ggplot(p, aes(x=(WLoss),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**6) Weak**
+
+```{r r7,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(Weak)
+ggplot(p, aes(x=(Weak),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(Weak)
+ggplot(p, aes(x=(Weak),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(Weak)
+ggplot(p, aes(x=(Weak),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**7) PolyP**
+
+```{r r8,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(PolyP)
+ggplot(p, aes(x=(PolyP),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(PolyP)
+ggplot(p, aes(x=(PolyP),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(PolyP)
+ggplot(p, aes(x=(PolyP),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**8) GThrush**
+
+```{r r9,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(GThrush)
+ggplot(p, aes(x=(GThrush),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(GThrush)
+ggplot(p, aes(x=(GThrush),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(GThrush)
+ggplot(p, aes(x=(GThrush),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**9) VB**
+
+```{r r10,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(VB)
+ggplot(p, aes(x=(VB),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(VB)
+ggplot(p, aes(x=(VB),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(VB)
+ggplot(p, aes(x=(VB),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**10) Itch**
+
+```{r r11,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(Itch)
+ggplot(p, aes(x=(Itch),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(Itch)
+ggplot(p, aes(x=(Itch),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(Itch)
+ggplot(p, aes(x=(Itch),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**11) Irritability**
+
+```{r r12,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(Irritability)
+ggplot(p, aes(x=(Irritability),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(Irritability)
+ggplot(p, aes(x=(Irritability),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(Irritability)
+ggplot(p, aes(x=(Irritability),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**12) DHeal**
+
+```{r r13,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(DHeal)
+ggplot(p, aes(x=(DHeal),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(DHeal)
+ggplot(p, aes(x=(DHeal),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(DHeal)
+ggplot(p, aes(x=(DHeal),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**13) PP**
+
+```{r r14,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(PP)
+ggplot(p, aes(x=(PP),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(PP)
+ggplot(p, aes(x=(PP),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(PP)
+ggplot(p, aes(x=(PP),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**14) Stiff**
+
+```{r r15,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(Stiff)
+ggplot(p, aes(x=(Stiff),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(Stiff)
+ggplot(p, aes(x=(Stiff),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(Stiff)
+ggplot(p, aes(x=(Stiff),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**15) Alopecia**
+
+```{r r16,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(Alopecia)
+ggplot(p, aes(x=(Alopecia),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(Alopecia)
+ggplot(p, aes(x=(Alopecia),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(Alopecia)
+ggplot(p, aes(x=(Alopecia),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+**16) Obesity**
+
+```{r r17,figures-side, fig.show='hold',out.width="33%"}
+p <- class0 %>%
+    count(Obesity)
+ggplot(p, aes(x=(Obesity),y=n)) +
+  geom_bar(fill = "blue", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 0")
+
+p <- class1 %>%
+    count(Obesity)
+ggplot(p, aes(x=(Obesity),y=n)) +
+  geom_bar(fill = "red", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Class 1")
+
+p <- diabetes %>%
+    count(Obesity)
+ggplot(p, aes(x=(Obesity),y=n)) +
+  geom_bar(fill = "green", stat = "identity")+
+  geom_text(aes(label=n), vjust =-0.3)+
+  ggtitle("Both Classes")
+```
+
+
+## Tables
+
+**PolyU and PP**
+```{r}
+table(diabetes$PolyU,diabetes$PP)
+```
+
+**PolyU and PolyP**
+```{r}
+table(diabetes$PolyU,diabetes$PolyP)
+```
+
+**PolyU and PolyD**
+```{r}
+table(diabetes$PolyU,diabetes$PolyD)
+```
+
+**PolyU and WLoss**
+```{r}
+table(diabetes$PolyU,diabetes$WLoss)
+```
+
+**PolyD and WLoss**
+```{r}
+table(diabetes$PolyD,diabetes$WLoss)
+```
+
+**PolyD and PP**
+```{r}
+table(diabetes$PolyD, diabetes$PP)
+```
+
+**Stiff and VB**
+```{r}
+table(diabetes$Stiff, diabetes$VB)
+```
+
+**VB and PP**
+```{r}
+table(diabetes$VB, diabetes$PP)
+```
+
+**DHeal and Itch**
+```{r}
+table(diabetes$DHeal, diabetes$Itch)
+```

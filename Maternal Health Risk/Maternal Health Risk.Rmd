@@ -1,0 +1,171 @@
+---
+title: "Maternal_risk"
+output: html_document
+date: "2022-10-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Sources**
+
+https://archive.ics.uci.edu/ml/datasets/Maternal+Health+Risk+Data+Set
+
+Data has been collected from different hospitals, community clinics, maternal health cares from the rural areas of Bangladesh through the IoT based risk monitoring system.
+Marzia Ahmed Email: ahmed.marzia32 ‘@’ gmail.com Institution: Daffodil International University, Dhaka, Bangladesh.
+
+**About**
+
+Data which provides information about significant risk factors for maternal mortality.
+
+**Attribute Information:**
+
+a)	Age: Any ages in years when a woman during pregnant.
+
+b)	SBP: Systolic (Upper value) of Blood Pressure in mmHg, another significant attribute during pregnancy.
+
+c)	DBP: Diastolic (Lower value) of Blood Pressure in mmHg, another significant attribute during pregnancy.
+
+d)	BS: Blood glucose levels is in terms of a molar concentration, mmol/L.
+
+e)	Temp: Temprature of body.
+
+f)	HRate: Heart Rate of a normal resting heart rate in beats per minute.
+
+g)	class: Predicted Risk Intensity Level during pregnancy considering the previous attribute.
+
+
+## Attributes Details
+
+
+```{r r1}
+library(readxl)
+library(moments)
+
+risk <- read_xlsx("Health_Risk.xlsx")
+class0 <- subset(risk,class=='low risk')
+class1 <- subset(risk,class=='mid risk')
+class2 <- subset(risk,class=='high risk')
+options(digits = 2)
+summary(risk)
+```
+
+**1) Age**
+
+```{r r2,figures-side, fig.show='hold',out.width="25%"}
+age0<-class0$Age
+hist(age0, main= "Histogram for class 0")
+age1<-class1$Age
+hist(age1, main= "Histogram for class 1")
+age2<-class2$Age
+hist(age2, main= "Histogram for class 2")
+age<-risk$Age
+hist(age, main= "Histogram for all classes")
+```
+
+
+**2) SBP**
+
+```{r r3,figures-side, fig.show='hold',out.width="25%"}
+sbp0<-class0$SBP
+hist(sbp0, main= "Histogram for class 0")
+sbp1<-class1$SBP
+hist(sbp1, main= "Histogram for class 1")
+sbp2<-class2$SBP
+hist(sbp2, main= "Histogram for class 2")
+sbp<-risk$SBP
+hist(sbp, main= "Histogram for all classes")
+```
+
+
+**3) DBP**
+
+```{r r4,figures-side, fig.show='hold',out.width="25%"}
+dbp0<-class0$DBP
+hist(dbp0, main= "Histogram for class 0")
+dbp1<-class1$DBP
+hist(dbp1, main= "Histogram for class 1")
+dbp2<-class2$DBP
+hist(dbp2, main= "Histogram for class 2")
+dbp<-risk$DBP
+hist(dbp, main= "Histogram for all classes")
+```
+
+
+**4) BS**
+
+```{r r5,figures-side, fig.show='hold',out.width="25%"}
+bs0<-class0$BS
+hist(bs0, main= "Histogram for class 0")
+bs1<-class1$BS
+hist(bs1, main= "Histogram for class 1")
+bs2<-class2$BS
+hist(bs2, main= "Histogram for class 2")
+bs<-risk$BS
+hist(bs, main= "Histogram for all classes")
+```
+
+
+**5) Temp**
+
+```{r r6,figures-side, fig.show='hold',out.width="25%"}
+temp0<-class0$Temp
+hist(temp0, main= "Histogram for class 0")
+temp1<-class1$Temp
+hist(temp1, main= "Histogram for class 1")
+temp2<-class2$Temp
+hist(temp2, main= "Histogram for class 2")
+temp<-risk$Temp
+hist(temp, main= "Histogram for all classes")
+```
+
+
+**6) HRate**
+
+```{r r7,figures-side, fig.show='hold',out.width="25%"}
+HR0<-class0$HRate
+hist(HR0, main= "Histogram for class 0")
+HR1<-class1$HRate
+hist(HR1, main= "Histogram for class 1")
+HR2<-class2$HRate
+hist(HR2, main= "Histogram for class 2")
+HR<-risk$HRate
+hist(HR, main= "Histogram for all classes")
+```
+
+
+## Correlation Matrix
+
+**Class 0**
+
+```{r}
+options(digits = 2)
+cor(class0[-7])
+det(cov(class0[-7]))
+```
+
+**Class 1**
+
+```{r}
+options(digits = 2)
+cor(class1[-7])
+det(cov(class1[-7]))
+```
+
+**Class 2**
+
+```{r}
+options(digits = 2)
+cor(class2[-7])
+det(cov(class2[-7]))
+```
+
+
+**All Classes**
+
+```{r}
+options(digits = 2)
+cor(risk[-7])
+det(cov(risk[-7]))
+```
